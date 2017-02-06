@@ -208,6 +208,15 @@
 			<url>http://download.eclipse.org/efxclipse/runtime-released/2.1.0/site</url>
 			<layout>p2</layout>
 		</repository>
+		
+		<!-- Uncomment to allow monitor plugin -->
+		<!--
+		<repository>
+			<id>lnls-monitor</id>
+			<url>${lnls.plugin.repo}</url>
+			<layout>p2</layout>
+		</repository>
+		-->
 	</repositories>
 	
 	<distributionManagement>
@@ -316,6 +325,7 @@
                 <ws>gtk</ws>
                 <arch>x86_64</arch>
               </environment>
+              <!--
               <environment>
                 <os>win32</os>
                 <ws>win32</ws>
@@ -325,7 +335,8 @@
                 <os>macosx</os>
                 <ws>cocoa</ws>
                 <arch>x86_64</arch>
-              </environment>
+              </environment> 
+              -->
           </environments>
         </configuration>
       </plugin>
