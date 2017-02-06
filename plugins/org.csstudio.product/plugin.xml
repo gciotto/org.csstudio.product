@@ -19,11 +19,11 @@
             name="Cs-studio">
          <property
                name="appName"
-               value="Cs-studio">
+               value="Cs-studio - LNLS Release">
          </property>
          <property
                name="introTitle"
-               value="Welcome to Control System Studio&lt;/h1&gt;&lt;p&gt;Control System Studio is an Eclipse-based collections of tools to monitor and operate large scale control systems, such as the ones in the accelerator community.&lt;/p&gt;&lt;p&gt;New users: click on First Steps&lt;/p&gt;&lt;h1&gt;">
+               value="Welcome to the LNLS Release of Control System Studio&lt;/h1&gt;&lt;p&gt;Control System Studio is an Eclipse-based collections of tools to monitor and operate large scale control systems, such as the ones in the accelerator community.&lt;/p&gt;&lt;p&gt;New users: click on First Steps&lt;/p&gt;&lt;h1&gt;">
          </property>
          <property
                name="introBrandingImage"
@@ -35,7 +35,7 @@
          </property>
          <property
                name="windowImages"
-               value="icons/css16.png,icons/css32.png,icons/css48.png,icons/css64.png,icons/css128.png">
+               value="icons/lnls16.gif,icons/lnls32.gif,icons/lnls48.gif,icons/lnls64.gif,icons/lnls128.gif">
          </property>
          <property
                name="startupForegroundColor"
