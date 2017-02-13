@@ -60,4 +60,64 @@
          install-size="0"
          version="0.0.0"/>
 
+   <includes
+         id="org.csstudio.alarm.beast.tools.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.csstudio.alarm.beast.ui.alarmtable.opiwidget.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.csstudio.alarm.beast.ui.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.csstudio.trends.databrowser2.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.csstudio.trends.databrowser2.opiwidget.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.csstudio.archive.diirt.datasource.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.csstudio.archive.reader.appliance.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.csstudio.archive.reader.channelarchiver.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.csstudio.archive.reader.ea4.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.csstudio.archive.reader.rdb.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.csstudio.archive.tools.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.csstudio.trends.databrowser2.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.csstudio.olog.feature"
+         version="0.0.0"/>
+
+   <!--   Uncomment to allow monitor plugin
+   <plugin
+         id="br.cnpem.gef.monitor.plugin"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/> -->
+
 </feature>
