@@ -1,0 +1,620 @@
+From a6909fbf2957cad32c70e410c7142da0e2ae024b Mon Sep 17 00:00:00 2001
+From: Gustavo Ciotto <gustavociotto@gmail.com>
+Date: Mon, 13 Feb 2017 11:03:39 -0200
+Subject: [PATCH] lnls release settings
+
+---
+ .../configuration/plugin_customization.ini         |  33 ++++++------
+ features/org.csstudio.product.feature/feature.xml  |  60 +++++++++++++++++++++
+ plugins/org.csstudio.product/about.ini             |   2 +-
+ plugins/org.csstudio.product/about.properties      |   2 +-
+ plugins/org.csstudio.product/icons/lnls128.gif     | Bin 0 -> 3416 bytes
+ plugins/org.csstudio.product/icons/lnls16.gif      | Bin 0 -> 615 bytes
+ plugins/org.csstudio.product/icons/lnls256.gif     | Bin 0 -> 8259 bytes
+ plugins/org.csstudio.product/icons/lnls32.gif      | Bin 0 -> 1345 bytes
+ plugins/org.csstudio.product/icons/lnls48.gif      | Bin 0 -> 1686 bytes
+ plugins/org.csstudio.product/icons/lnls64.gif      | Bin 0 -> 1874 bytes
+ plugins/org.csstudio.product/plugin.xml            |   2 +-
+ pom.xml                                            |   9 ++++
+ repository/cs-studio.product                       |  11 ++++
+ 13 files changed, 101 insertions(+), 18 deletions(-)
+ create mode 100644 plugins/org.csstudio.product/icons/lnls128.gif
+ create mode 100644 plugins/org.csstudio.product/icons/lnls16.gif
+ create mode 100644 plugins/org.csstudio.product/icons/lnls256.gif
+ create mode 100644 plugins/org.csstudio.product/icons/lnls32.gif
+ create mode 100644 plugins/org.csstudio.product/icons/lnls48.gif
+ create mode 100644 plugins/org.csstudio.product/icons/lnls64.gif
+
+diff --git a/features/org.csstudio.product.configuration.feature/rootfiles/configuration/plugin_customization.ini b/features/org.csstudio.product.configuration.feature/rootfiles/configuration/plugin_customization.ini
+index 07cf814..85f7896 100644
+--- a/features/org.csstudio.product.configuration.feature/rootfiles/configuration/plugin_customization.ini
++++ b/features/org.csstudio.product.configuration.feature/rootfiles/configuration/plugin_customization.ini
+@@ -72,34 +72,37 @@ org.eclipse.ui.browser/browser-choice=1
+ # Removal of these settings results in empty addr list
+ org.csstudio.platform.libs.epics/auto_addr_list=true
+ org.csstudio.platform.libs.epics/use_pure_java=true
+-#org.csstudio.platform.libs.epics/addr_list=127.0.0.1
++org.csstudio.platform.libs.epics/addr_list=10.0.4.69
+ org.csstudio.platform.libs.epics/max_array_bytes=160000
+ 
+ # Data Browser
+-# Removal of these settings results in empty defaults
+-# URLs to suggest in the "Archives" view
+-#org.csstudio.trends.databrowser2/urls=xnds://ca01.cs.local/cgi-bin/ArchiveDataServer.cgi
++org.csstudio.trends.databrowser2/urls=pbraw://10.0.4.69/lnls-control-archiver
++org.csstudio.trends.databrowser2/use_default_archives=true
++org.csstudio.trends.databrowser2/automatic_history_refresh=true
++org.csstudio.trends.databrowser2/archive_rescale=NONE
++org.csstudio.trends.databrowser2/use_auto_scale=true
+ 
+ # Default data sources for newly added channels
+ # Format:  <name>|<key>|<url>
+ # xnds: URLs use the key. Other URLs might ignore the key.
+-#org.csstudio.trends.databrowser2/archives=All|1|xnds://ca01.cs.local/cgi-bin/ArchiveDataServer.cgi
++org.csstudio.trends.databrowser2/archives=All|1|pbraw://10.0.4.69/lnls-control-archiver
+ 
+ ## Authentication
+-org.csstudio.security/jaas_config_file=platform:/config/jaas.conf
+-org.csstudio.security/jaas_config_name=dummy
++org.csstudio.security/jaas_config=com.sun.security.auth.module.LdapLoginModule required debug="true" useSSL="false" userProvider="ldap://10.0.4.69/cn=alarm_config,cn=users,dc=controle,dc=lnls,dc=br" authIdentity="uid={USERNAME},cn=alarm_config,cn=users,dc=controle,dc=lnls,dc=br";
+ 
+ ## Authorization
+-org.csstudio.security/authorization_provider=FileBased
+-org.csstudio.security/authorization_file_name=platform:/config/authorization.conf
++org.csstudio.security/authorization_provider=LDAPGroup
++org.csstudio.security/ldap_group_url=ldap://10.0.4.69/cn=users,dc=controle,dc=lnls,dc=br
++org.csstudio.security/ldap_group_base=
+ 
+ # Alarm System
+-#org.csstudio.alarm.beast/root_component=NSLS2
+-#org.csstudio.alarm.beast.ui.areapanel/columns=4
+-#org.csstudio.alarm.beast/rdb_url=jdbc:mysql://beast/ALARM
+-#org.csstudio.alarm.beast/jms_url=failover:(tcp://beast:61616)
+-#org.csstudio.alarm.beast.annunciator/jms_topic=NSLS2
+-#org.csstudio.alarm.beast.annunciator/jms_url=failover:(tcp://beast:61616)
++org.csstudio.alarm.beast/root_component=LNLS_Alarms
++org.csstudio.alarm.beast.ui.areapanel/columns=2
++org.csstudio.alarm.beast/rdb_url=jdbc:mysql://10.0.4.69:3306/lnls_alarms
++org.csstudio.alarm.beast/rdb_user=lnls_alarm_user
++org.csstudio.alarm.beast/rdb_password=
++org.csstudio.alarm.beast/jms_url=failover:(tcp://10.0.4.69:61616)
++org.csstudio.alarm.beast.ui.areapanel/hierarchy_level=2
+ 
+ # preferences for the channelfinder viewer
+ #org.csstudio.utility.channelfinder/channel_finder_url=http://channelfinder.gov:8080/ChannelFinder/
+diff --git a/features/org.csstudio.product.feature/feature.xml b/features/org.csstudio.product.feature/feature.xml
+index d7c0acf..d678998 100644
+--- a/features/org.csstudio.product.feature/feature.xml
++++ b/features/org.csstudio.product.feature/feature.xml
+@@ -60,4 +60,64 @@
+          install-size="0"
+          version="0.0.0"/>
+ 
++   <includes
++         id="org.csstudio.alarm.beast.tools.feature"
++         version="0.0.0"/>
++
++   <includes
++         id="org.csstudio.alarm.beast.ui.alarmtable.opiwidget.feature"
++         version="0.0.0"/>
++
++   <includes
++         id="org.csstudio.alarm.beast.ui.feature"
++         version="0.0.0"/>
++
++   <includes
++         id="org.csstudio.trends.databrowser2.feature"
++         version="0.0.0"/>
++
++   <includes
++         id="org.csstudio.trends.databrowser2.opiwidget.feature"
++         version="0.0.0"/>
++
++   <includes
++         id="org.csstudio.archive.diirt.datasource.feature"
++         version="0.0.0"/>
++
++   <includes
++         id="org.csstudio.archive.reader.appliance.feature"
++         version="0.0.0"/>
++
++   <includes
++         id="org.csstudio.archive.reader.channelarchiver.feature"
++         version="0.0.0"/>
++
++   <includes
++         id="org.csstudio.archive.reader.ea4.feature"
++         version="0.0.0"/>
++
++   <includes
++         id="org.csstudio.archive.reader.rdb.feature"
++         version="0.0.0"/>
++
++   <includes
++         id="org.csstudio.archive.tools.feature"
++         version="0.0.0"/>
++
++   <includes
++         id="org.csstudio.trends.databrowser2.feature"
++         version="0.0.0"/>
++
++   <includes
++         id="org.csstudio.olog.feature"
++         version="0.0.0"/>
++
++   <!--   Uncomment to allow monitor plugin
++   <plugin
++         id="br.cnpem.gef.monitor.plugin"
++         download-size="0"
++         install-size="0"
++         version="0.0.0"
++         unpack="false"/> -->
++
+ </feature>
+diff --git a/plugins/org.csstudio.product/about.ini b/plugins/org.csstudio.product/about.ini
+index 729520f..852ebca 100644
+--- a/plugins/org.csstudio.product/about.ini
++++ b/plugins/org.csstudio.product/about.ini
+@@ -1,2 +1,2 @@
+ aboutText=%aboutText
+-featureImage=icons/css32.png
++featureImage=icons/lnls32.gif
+diff --git a/plugins/org.csstudio.product/about.properties b/plugins/org.csstudio.product/about.properties
+index 8b9b420..a87ee8c 100644
+--- a/plugins/org.csstudio.product/about.properties
++++ b/plugins/org.csstudio.product/about.properties
+@@ -1,4 +1,4 @@
+-aboutText=CS-Studio Product {0}\n\
++aboutText=LNLStudio Release of CS-Studio Product {0}\n\
+ Feature Version: {featureVersion}\n\
+ \n\
+ (c) Copyright Control System Studio contributors and others. All rights reserved.\n\
+diff --git a/plugins/org.csstudio.product/icons/lnls128.gif b/plugins/org.csstudio.product/icons/lnls128.gif
+new file mode 100644
+index 0000000000000000000000000000000000000000..7b98bc5e7601d3ed193b653e514d899d072893f5
+GIT binary patch
+literal 3416
+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
+
+literal 0
+HcmV?d00001
+
+diff --git a/plugins/org.csstudio.product/icons/lnls16.gif b/plugins/org.csstudio.product/icons/lnls16.gif
+new file mode 100644
+index 0000000000000000000000000000000000000000..983479953573ae29d83ba0c0f759a8e2d075fcd6
+GIT binary patch
+literal 615
+zcmV-t0+{_rNk%w1VGsZi0LFR%C@3dSPfq}8vjAzd0ByDabh!X@x(0K(VPRnab-Dm{
+zx&U^&1$Dazb-Dm|y8w5*2Y9;)dAtmKy=!Z0ZEbBFe!VY+!Z44=GmyuEf`U4e$v2eB
+zK$pu!mdZt!%R-pTNSw}4pwCgE&{v|-R;1Bdrqg4n(qF06YOdF9uGV(1*QckasHv%Y
+zwc2{N+IhFzh`QZ{yWEDm-G;o~hrHd0yxoYs-i^H7i^1TG!r{HWy`aV5m&oJ6!NJ4B
+z!=cONr^@7~%jBud<)+W)r_boF&gZJq>CVp1(9qDf*6PyI($mw^)YR0z+U&mD?b_Pf
+z#@_G5-|olX?!@5l+uYp9;qc4k@xtc+;o;%V<?_+y^V8?^)#&r(<>lDv^VsV2+3NJ`
+z>+9_7?CtIC?(XjI@9*&N@bU5S>GS#O^ZD}f^7iuZ?DhKY_WJPl`{?-p_V)Jj`26?#
+z{rUX;`uzR!|Nr~_{{8*^{r>*{|Nj6000000000000000000000A^8LW3IKlqEC2ui
+z01yBW06+)CfO&$0goT4MC<7%NJb6he6;mQPgEa{*c}^CC5Dp8Jf)j#B6ajevf*A-p
+zgER{ZBw82_2?h=h3OIu{9&Q(DCLKdfURxWWc{KuqV7Clxd30QZaAaa(VPj!pYfCIx
+zPlHf0GchVN=;<<5l@1YtXa_GL3!ca|1bI>;d2v}k9||ZyM&rZ{D=@wYNh3!P2!axf
+z2x{>_gB?6X8X$YKqm7_CL9PHPVu%S7GiKDR$m8S4oib097$P($3Y9ZGy5tE206X|%
+BNy`8L
+
+literal 0
+HcmV?d00001
+
+diff --git a/plugins/org.csstudio.product/icons/lnls256.gif b/plugins/org.csstudio.product/icons/lnls256.gif
+new file mode 100644
+index 0000000000000000000000000000000000000000..54f206ba915a8c0cb76c341ffa79ec7296cd3705
+GIT binary patch
+literal 8259
+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
+
+literal 0
+HcmV?d00001
+
+diff --git a/plugins/org.csstudio.product/icons/lnls32.gif b/plugins/org.csstudio.product/icons/lnls32.gif
+new file mode 100644
+index 0000000000000000000000000000000000000000..efecc106cab127b3efc73937accea81c8cec7af8
+GIT binary patch
+literal 1345
+zcmdth|3A}t0KoD0wDR#StW9)%*@Q-}TIKrYaqTl==zPoLagS0L@q@a{my4oOYfWWS
+z^sqz}aUJ)d%p)XWn_-(J6PaslGn<Wu$!NZ9_vqia*MIQ*;T0GZaPUwp7GQy<6#xVP
+z7GN!ew6=w8?QQHG?KYrM7$>xoGsf9vqx%jw?;m&W*}L2K=OaY;sNXRX_^lS4t&2Dj
+z4$jqsxCRhk3obNRC)9)A8^IrM)}L<xiElwtGe~|1E;WHmEo)NWg0!~SxERZ{W{}Zh
+zd-)x>+6u0<Ib3N0*V*7kJGjXMR5rNH`606fN#j~&wI?QDOiD>~rLgVpbhzE(INt5_
+zpmOoI+c(h#=~u7pq4RLLd;+6mUrtx%&Feos5FE%AdghBL)SJEqLUO*~XrYK$^d5fF
+z!?;fmEf$776-Acz6cj!>`J(@EQ9<F8$MIEt&&r-A)O<Ssa`3_{N%>#TFR=y^>!g{i
+z!OO2D8I4kEgS6&V^~>6tdu&-YN1oRvr*jn#I#tXrd4WLrSU6V7A1fD)KmVYt5UcsZ
+zuIgU3pqpPK9<T4!biWrih_$u-6QU2@tbxg%UQykrFTH&q#2<TK4^8*=i<^cf*pi8X
+z!G4}}s&!<lV|cnvHr+X*ANoAVme2evmGI@W0>xM9$mjQpsV?P|aCB~1Chb-lL}T+Z
+z#fW@VCRXW3Rf>L%VN5+bpq*EZkA0e0P-|4<TJ?a=q?s6(=#0a<Iqjro;)_-`Ge4|f
+zRZoAD>lYNWM$L>-t6!YfPmRqj&CE{gzs^j~Ezi#BzZh2Z3&uI)@`BM|SX`N3S~V_x
+zTUa(NE*ob}=B1UzZ>wgb$-HPbub7uj<`wXN3AczuSOYWg{to*71Q9ZU46Ds#RvGs;
+z6!HR3Ac=^sm;@J{>N%|wwfoeTC~^heGHT71Gx&#GH0*;3D-opY^ASN=zE=L?fB<T=
+z#g_0*%pgVO@x1jVpPTeb^sTy&;n-LLud~wI&dWbVh_Tt*!lDhKY;d)~&OX7v+#>O+
+zsh7j6&O|F2k~h%VW2h6|q9=iVHT&U&$pAXrGt{U6O{`J&p$@00gg(FR)OfN^!DL7Z
+zDxE5Jg%YUQoIRVN@<VmWNXTJp=w0{2euEEByCnCpoX`1Nq1>1bCHqPH;4C++b54h$
+zyoeeSgZChN5@AG8I)Nh$L2ysmL$(PNR>8Bw3Z99v?W|>P#=-QZ0jj8Nm2>*<U}0$(
+zyDc-{zqDELXouxJWg*-!Ow1wBNN`0eus}T;awtneI$@BzEc)8B)<vUL)QcNoyhEG|
+zL}NG}KpW`TJ4g!}#Xk)T?Y_>$=571+I6ykZm*DuW+4!%PF4gzdB+n%8*<hQK`n|zh
+zQyg3wa7%`OLGq#eNkWFAQ)u>aIxb^pYLnyI^*&LAZm(85W307z83=%5m=w}F5)00A
+z_D#jQCu7KKW2|uD5n>$5g&Bgs0a*mYjgYd+<AJp@@LJKqz;J}?3Ko%Ob9y6hgP)cq
+zgNrGF*~DB<yJ-8Gx=8+JY#!7Br588xWt+|rBgnYOA!~_u@o+oc>mTC<9T9;5NB#ph
+C-%WV{
+
+literal 0
+HcmV?d00001
+
+diff --git a/plugins/org.csstudio.product/icons/lnls48.gif b/plugins/org.csstudio.product/icons/lnls48.gif
+new file mode 100644
+index 0000000000000000000000000000000000000000..3d893f0c10c29361e23d51298d44e67bd18dd36e
+GIT binary patch
+literal 1686
+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
+
+literal 0
+HcmV?d00001
+
+diff --git a/plugins/org.csstudio.product/icons/lnls64.gif b/plugins/org.csstudio.product/icons/lnls64.gif
+new file mode 100644
+index 0000000000000000000000000000000000000000..00aa51837d761c01b9cbe8946192ec093989227f
+GIT binary patch
+literal 1874
+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
+F_77}@h}i%D
+
+literal 0
+HcmV?d00001
+
+diff --git a/plugins/org.csstudio.product/plugin.xml b/plugins/org.csstudio.product/plugin.xml
+index 406bfac..cf35e2c 100644
+--- a/plugins/org.csstudio.product/plugin.xml
++++ b/plugins/org.csstudio.product/plugin.xml
+@@ -19,7 +19,7 @@
+             name="Cs-studio">
+          <property
+                name="appName"
+-               value="Cs-studio">
++               value="Cs-studio - LNLS Release">
+          </property>
+          <property
+                name="introTitle"
+diff --git a/pom.xml b/pom.xml
+index 918849f..b0b273e 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -208,6 +208,15 @@
+ 			<url>http://download.eclipse.org/efxclipse/runtime-released/2.1.0/site</url>
+ 			<layout>p2</layout>
+ 		</repository>
++	
++		<!-- Uncomment to allow monitor plugin -->
++		<!--
++		<repository>
++			<id>lnls-monitor</id>
++			<url>${lnls.plugin.repo}</url>
++			<layout>p2</layout>
++		</repository>
++		-->
+ 	</repositories>
+ 	
+ 	<distributionManagement>
+diff --git a/repository/cs-studio.product b/repository/cs-studio.product
+index bf6e3d7..5b57e4b 100644
+--- a/repository/cs-studio.product
++++ b/repository/cs-studio.product
+@@ -14,6 +14,10 @@
+    </configIni>
+ 
+    <launcherArgs>
++      <programArgsLin>--launcher.GTK_version
++2
++--launcher.appendVmargs
++      </programArgsLin>
+       <vmArgs>-Xmx1024m
+ -Xms128m
+ -Dorg.eclipse.update.reconcile=false
+@@ -90,4 +94,11 @@
+       <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
+    </configurations>
+ 
++   <preferencesInfo>
++      <targetfile overwrite="false"/>
++   </preferencesInfo>
++
++   <cssInfo>
++   </cssInfo>
++
+ </product>
+-- 
+2.11.1
+
