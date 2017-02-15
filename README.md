@@ -5,4 +5,4 @@ In order to build the new release, switch to the branch with `git checkout` acco
 
 To use `mvn`, you must download Maven packages from your respective OS distribuition package repository.
 
-Any doubts, problems or suggestions, please send an email to `gustavo.ciotto@lnls.br` or `eduardo.coelho@lnls.br`.
+Any doubts, problems or suggestions, please send an email to `gustavo.pinton@lnls.br` or `eduardo.coelho@lnls.br`.
