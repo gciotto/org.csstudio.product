@@ -16,7 +16,6 @@
    <launcherArgs>
       <programArgsLin>--launcher.GTK_version
 2
---launcher.appendVmargs
       </programArgsLin>
       <vmArgs>-Xmx1024m
 -Xms128m
