@@ -30,6 +30,7 @@
 		<tycho-extras.version>0.23.1</tycho-extras.version>
 		<cs-studio.version>4.3</cs-studio.version>
 		<cs-studio-central.url>http://download.controlsystemstudio.org/product/${cs-studio.version}</cs-studio-central.url>
+		<displaybuilder.plugin.repo>http://ics-web.sns.ornl.gov/css/display.builder</displaybuilder.plugin.repo>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jgit.dirtyWorkingTree>error</jgit.dirtyWorkingTree>
 		<baselineMode>fail</baselineMode>
@@ -217,6 +218,14 @@
 			<layout>p2</layout>
 		</repository>
 		-->
+
+		<!-- Comment to disable DisplayBuilder -->
+		<repository>
+			<id>sns-displaybuilder</id>
+			<url>${displaybuilder.plugin.repo}</url>
+			<layout>p2</layout>
+		</repository>
+
 	</repositories>
 	
 	<distributionManagement>

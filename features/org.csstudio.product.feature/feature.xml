@@ -121,4 +121,9 @@
          version="0.0.0"
          unpack="false"/> -->
 
+	<includes
+         id="org.csstudio.display.builder.feature"
+         version="0.0.0"/>
+
 </feature>
+
