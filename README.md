@@ -7,4 +7,4 @@ To use `mvn`, you must download Maven packages from your respective OS distribui
 
 Any doubts, problems or suggestions, please send an email to `gustavo.pinton@lnls.br` or `eduardo.coelho@lnls.br`.
 
-Release products can be downloaded from a temporary server in the LNLS domain at http://10.0.6.37/css-releases/products.html
+Release products can be downloaded at http://csscon.lnls.br
