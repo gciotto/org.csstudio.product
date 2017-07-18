@@ -5,7 +5,7 @@
   are made available under the terms of the Eclipse Distribution License v1.0
   which accompanies this distribution, and is available at
   http://www.eclipse.org/org/documents/edl-v10.php
- 
+
   Contributors:
      Jan Hatje - created the pom to build the plug-ins
 -->
@@ -26,8 +26,8 @@
 	<!-- PROPERTIES -->
 	<properties>
 		<!-- VERSIONS -->
-		<tycho.version>0.23.1</tycho.version>
-		<tycho-extras.version>0.23.1</tycho-extras.version>
+		<tycho.version>1.0.0</tycho.version>
+    <tycho-extras.version>${tycho.version}</tycho-extras.version>
 		<cs-studio.version>4.5</cs-studio.version>
 		<cs-studio-central.url>http://download.controlsystemstudio.org/product/${cs-studio.version}</cs-studio-central.url>
 		<displaybuilder.plugin.repo>http://ics-web.sns.ornl.gov/css/display.builder</displaybuilder.plugin.repo>
@@ -48,6 +48,9 @@
 		<!--sonar.jdbc.driver>INSERT YOUR JDBC DRIVER</sonar.jdbc.driver -->
 		<!--sonar.jdbc.username>username</sonar.jdbc.username! -->
 		<!--sonar.jdbc.password>password</sonar.jdbc.password -->
+
+        <orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20150519210750/repository/</orbit-site>
+        <efx-site>http://download.eclipse.org/efxclipse/runtime-released/2.1.0/site</efx-site>
 	</properties>
 
 	<!-- PLUGIN REPOSITORIES -->
@@ -67,10 +70,29 @@
 	<!-- Profiles -->
 	<profiles>
 		<profile>
-			<id>platform-default</id>
+            <id>platform-default</id>
+            <activation>
+                <property>
+                    <name>!platform-version-name</name>
+                </property>
+            </activation>
+            <properties>
+                <eclipse-site>http://download.eclipse.org/releases/neon</eclipse-site>
+                <eclipse-update-site>http://download.eclipse.org/eclipse/updates/4.6</eclipse-update-site>
+                <rap-site>http://download.eclipse.org/rt/rap/3.0</rap-site>
+                <rap-incubator-site>http://archive.eclipse.org/rt/rap/incubator/nightly/gef/20150327-1849</rap-incubator-site>
+                <platform-version>[4.4,4.6)</platform-version>
+                <swtbot-site>http://download.eclipse.org/technology/swtbot/releases/latest/</swtbot-site>
+                <orbit-site>http://download.eclipse.org/tools/orbit/R-builds/R20170307180635/repository</orbit-site>
+                <efx-site>http://download.eclipse.org/efxclipse/runtime-released/2.4.0/site</efx-site>
+            </properties>
+        </profile>
+        <profile>
+			<id>platform-mars</id>
 			<activation>
 				<property>
 					<name>!platform-version-name</name>
+                    <value>mars</value>
 				</property>
 			</activation>
 			<properties>
@@ -174,7 +196,24 @@
 			<pluginRepositories>
 			</pluginRepositories>
 		</profile>
-		<profile>
+        <!-- this profile is related to bug 1818 - https://github.com/ControlSystemStudio/cs-studio/issues/1818
+         org.eclipse.draw2d_3.9.101.201408150207 is forced over never versions of plugin -->
+        <profile>
+            <id>issue-1818</id>
+            <activation>
+                <property>
+                    <name>issue-1818</name>
+                </property>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>csstudio-issue-1818</id>
+                    <url>http://download.controlsystemstudio.org/issue/1818</url>
+                    <layout>p2</layout>
+                </repository>
+            </repositories>
+        </profile>
+        <profile>
 			<id>cs-studio</id>
 			<activation>
 				<property>
@@ -216,35 +255,34 @@
 			<url>${rap-incubator-site}</url>
 			<layout>p2</layout>
 		</repository>
-		<repository>
-			<id>orbit</id>
-			<url>http://download.eclipse.org/tools/orbit/downloads/drops/R20150519210750/repository/</url>
-			<layout>p2</layout>
-		</repository>
-		<repository>
-			<id>efx</id>
-			<url>http://download.eclipse.org/efxclipse/runtime-released/2.1.0/site</url>
-			<layout>p2</layout>
-		</repository>
-	
-		<!-- Uncomment to allow monitor plugin -->
-		<!--
-		<repository>
-			<id>lnls-monitor</id>
-			<url>${lnls.plugin.repo}</url>
-			<layout>p2</layout>
-		</repository>
-		-->
+                <repository>
+                    <id>orbit</id>
+                    <url>${orbit-site}</url>
+                    <layout>p2</layout>
+                </repository>
+                <repository>
+                    <id>efx</id>
+                    <url>${efx-site}</url>
+                    <layout>p2</layout>
+                </repository>
 
-		<!-- Comment to disable DisplayBuilder -->
-		<repository>
-			<id>sns-displaybuilder</id>
-			<url>${displaybuilder.plugin.repo}</url>
-			<layout>p2</layout>
-		</repository>
+                <!-- Uncomment to allow monitor plugin -->
+                <!--
+                <repository>
+                        <id>lnls-monitor</id>
+                        <url>${lnls.plugin.repo}</url>
+                        <layout>p2</layout>
+                </repository>
+                -->
 
+                <!-- Comment to disable DisplayBuilder -->
+                <repository>
+                        <id>sns-displaybuilder</id>
+                        <url>${displaybuilder.plugin.repo}</url>
+                        <layout>p2</layout>
+                </repository>
 	</repositories>
-	
+
 	<distributionManagement>
 		<site>
 			<id>s3.site</id>
@@ -271,7 +309,7 @@
 
 
   <build>
-  
+
   	<extensions>
 		<extension>
 			<groupId>org.kuali.maven.wagons</groupId>
@@ -279,7 +317,7 @@
 			<version>1.2.1</version>
 		</extension>
 	</extensions>
-	
+
     <!--
       PLUGIN MANAGEMENT
     -->
@@ -310,7 +348,7 @@
             <jgit.dirtyWorkingTree>warning</jgit.dirtyWorkingTree>
           </configuration>
         </plugin>
-      </plugins> 
+      </plugins>
     </pluginManagement>
 
     <!--
