@@ -112,6 +112,14 @@
          id="org.csstudio.olog.feature"
          version="0.0.0"/>
 
+   <includes
+        id="org.csstudio.logbook.viewer.feature"
+        version="0.0.0"/>
+
+   <includes
+        id="org.csstudio.applications.logbook.feature"
+        version="0.0.0"/>
+
    <!--   Uncomment to allow monitor plugin
    <plugin
          id="br.cnpem.gef.monitor.plugin"
