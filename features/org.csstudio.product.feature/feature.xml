@@ -69,8 +69,15 @@
    <includes
          id="org.csstudio.olog.feature"
          version="0.0.0"/>
-         
-         
+
+    <includes
+         id="org.csstudio.logbook.viewer.feature"
+         version="0.0.0"/>
+
+    <includes
+         id="org.csstudio.applications.logbook.feature"
+         version="0.0.0"/>
+
    <plugin
          id="org.csstudio.product"
          download-size="0"
