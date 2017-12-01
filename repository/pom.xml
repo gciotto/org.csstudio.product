@@ -56,9 +56,9 @@
 					</formats>
 					<products>
 						<product>
-							<id>cs-studio</id>
-							<rootFolder>cs-studio</rootFolder>
-							<archiveFileName>cs-studio-${project.version}</archiveFileName>
+							<id>lnls-studio</id>
+							<rootFolder>lnls-studio</rootFolder>
+							<archiveFileName>lnls-studio-${project.version}</archiveFileName>
 						</product>
 					</products>
 				</configuration>
