@@ -16,7 +16,7 @@
          point="org.eclipse.core.runtime.products">
       <product
             application="org.csstudio.product.application"
-            name="Cs-studio">
+            name="LNLS Studio">
          <property
                name="appName"
                value="LNLS CSS Release">
