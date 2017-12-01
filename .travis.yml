@@ -1,0 +1,19 @@
+language: java
+
+env:
+ - VERSION=4.4.3
+
+script: true
+
+deploy:
+  provider: releases
+  api_key:
+    secure: NiSYIFkLDHUB+M1JW8Isu3o4UjwOfXmTG1718lfBUmJAhm5zDcRC21g7+y/Vyc8IsUpB6IdKRNtkwY/Ejh1TlAj3bNT7xSqQ2RAtRd5559gUZEUMHF4+HxFjDe9yulL6JiqRoxeaYVFiLUXle/3h5RQYuWMaRKEA4W7wdccbeznuNLwMtsA5pVS5BfqyQH8/EGXr7hfJ2axc10DWl5vHdR42JIRGodeWH3qlSOtuqsr+4yBQCcn62frjBXbpdNF4yDff0YBVSY9UXl6NTyHOAqqFxjwxBNRQtpOsiB6WQ/nuwHrqJiF0HBbQlG8z2NpRZsB5oYr8r/RpjHm2Hn7AI3e+OaaolNqGZuFjsm1mUK79oi1eDATaLutCpFkrhvO9CHLuFhYc8wKOAsxiFncikwLzIqZF5v8OfwLEtb15dGysS07plIOH2ZnjSrPq2CCdglZ/CYImskWsnHVCND25Rw5RfrbGOw+fagb4Mbd+7vAboupEUodR7w54JMa+12iAcouSDBuN94Sbv/TyEoYv7MQod71xtWU4I/3XWVC9/LZDqnB9sMsR93jVXVFebMxUCG6laEoIltO4qAschzmQ+GApzNF+KifOjwfS10Fs6tn4BfYt6oAtqage2eixtQtbKSThlxFILXwUBOUfzguSFyLECGRCJOm6lYNL6RVUt/M=
+  file_glob: true
+  file: $TRAVIS_BUILD_DIR/repository/target/products/lnls-studio-$VERSION-*
+  overwrite: true
+  skip_cleanup: true
+  on:
+    repo: lnls-sirius/lnls-studio
+    tags: true
+    branch: 4.4.x
