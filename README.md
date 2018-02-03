@@ -10,3 +10,13 @@ To use `mvn`, you must download Maven packages from your respective OS distribui
 Any doubts, problems or suggestions, please send an email to `gustavo.pinton@lnls.br` or `eduardo.coelho@lnls.br`.
 
 Release products can be downloaded at http://csscon.lnls.br
+
+### Product features
+
+This product is composed of the following Control System's features
+
+* BEAST Alarm Client Toolkit
+* Databrowser2
+* Olog and Logbook support
+* BOY and Display Builder
+* EDM2OPI
