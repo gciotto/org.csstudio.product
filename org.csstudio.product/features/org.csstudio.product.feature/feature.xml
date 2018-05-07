@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.csstudio.product.feature"
+      label="CS-Studio Product"
+      version="4.6.1.qualifier"
+      provider-name="CS-Studio Collaboration &lt;cs-studio-core@lists.sourceforge.net&gt;"
+      plugin="org.csstudio.product">
+
+   <description url="http://controlsystemstudio.github.io/">
+      CS-Studio Product.
+   </description>
+
+   <copyright url="http://controlsystemstudio.github.io/">
+      Use is subject to license.
+   </copyright>
+
+   <license url="http://www.eclipse.org/legal/epl-v10.html">
+      Eclipse Public License.
+   </license>
+
+   <plugin
+         id="org.csstudio.product"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.csstudio.startup.intro"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.csstudio.startup.helper"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.csstudio.utility.product"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.csstudio.utility.product.default"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.ui.themes"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <includes
+         id="org.csstudio.alarm.beast.tools.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.csstudio.alarm.beast.ui.alarmtable.opiwidget.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.csstudio.alarm.beast.ui.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.csstudio.trends.databrowser2.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.csstudio.trends.databrowser2.opiwidget.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.csstudio.archive.diirt.datasource.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.csstudio.archive.reader.appliance.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.csstudio.archive.reader.channelarchiver.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.csstudio.archive.reader.ea4.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.csstudio.archive.reader.rdb.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.csstudio.archive.tools.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.csstudio.trends.databrowser2.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.csstudio.olog.feature"
+         version="0.0.0"/>
+
+   <includes
+        id="org.csstudio.logbook.viewer.feature"
+        version="0.0.0"/>
+
+   <includes
+        id="org.csstudio.applications.logbook.feature"
+        version="0.0.0"/>
+
+   <!--   Uncomment to allow monitor plugin
+   <plugin
+         id="br.cnpem.gef.monitor.plugin"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/> -->
+
+   <includes
+         id="org.csstudio.display.builder.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.csstudio.applications.opibuilder.edm.feature"
+         version="0.0.0"/>
+
+
+</feature>
+
+
